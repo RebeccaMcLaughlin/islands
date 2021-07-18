@@ -12,7 +12,7 @@ Then copy the .env.example file to .env
 
 #### Run on the command line
 
-`php artisan:island`
+`php artisan island`
 
 ## Method
 
