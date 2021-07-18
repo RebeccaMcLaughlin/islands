@@ -2,8 +2,6 @@
 
 namespace App\Services\Islands;
 
-use Illuminate\Support\Facades\Log;
-
 class IslandChecker
 {
     public $array;
@@ -34,6 +32,15 @@ class IslandChecker
         return false;
     }
 
+    /**
+     * Actual traversal function
+     * Should search in a plus shape from the originating item for all elements that are marked as 1
+     * Then update the main array with -1 replacements
+     *
+     * @param integer $row
+     * @param integer $col
+     * @return void
+     */
     public function dfs(int $row, int $col): void
     {
         // For each row, check the item before, current and after
@@ -55,9 +62,6 @@ class IslandChecker
                 $this->dfs($row + $rowNbr[$x], $col + $colNbr[$x]);
             }
         }
-
-        Log::info("Inside DFS");
-        Log::info($this->array);
     }
 
     public function numberOfIslands(): int
@@ -67,8 +71,6 @@ class IslandChecker
         // Traverse the array looking for items that have a 1
         for ($row = 0; $row < count($this->array); ++$row) {
             for ($col = 0; $col < count($this->array[$row]); ++$col) {
-                Log::info("Main loop");
-                Log::info($this->array[$row]);
                 if ($this->array[$row][$col] === 1) {
                     $this->dfs($row, $col);
                     $numberOfIslands++;
