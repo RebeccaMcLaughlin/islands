@@ -22,5 +22,8 @@ jobs:
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --no-suggest
 
+      - name: Generate key
+        run: php artisan key:generate
+
       - name: Run PHPUnit
         run: php artisan test
