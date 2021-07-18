@@ -48,6 +48,7 @@ class Island extends Command
         $array = $this->islandGenerator->generateArray();
 
         $islandCount = new IslandChecker($array);
+        $count = $islandCount->numberOfIslands();
 
         $arrayRows = [];
         foreach ($array as $key => $row) {
@@ -56,9 +57,14 @@ class Island extends Command
 
         $output = [
             'map' => $array,
-            'islandsCount' => $islandCount->numberOfIslands()
+            'islandsCount' => $count
         ];
 
-        $this->info(print_r($output));
+        $this->line("Island map (" . $count . " islands):");
+        $this->line($arrayRows);
+
+        $this->info(json_encode($output));
+
+        return;
     }
 }
