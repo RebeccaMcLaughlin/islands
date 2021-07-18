@@ -38,27 +38,26 @@ class IslandChecker
     {
         // For each row, check the item before, current and after
         $rowNbr = [
-            -1, 0, 1
+            -1, 0, 0, 1
         ];
 
         // For each col, check the item before, current and after
         $colNbr = [
-            -1, 0, 1
+            0, -1, 1, 0
         ];
 
         // Mark as visited and continue
         $this->array[$row][$col] = -1;
 
         // Check neighbours
-        for ($x = 0; $x < 3; ++$x) {
-            Log::info($row + $rowNbr[$x]);
-
+        for ($x = 0; $x < 4; ++$x) {
             if ($this->isInBounds($row + $rowNbr[$x], $col + $colNbr[$x])) {
                 $this->dfs($row + $rowNbr[$x], $col + $colNbr[$x]);
             }
         }
 
-        Log::info($this->array[$row]);
+        Log::info("Inside DFS");
+        Log::info($this->array);
     }
 
     public function numberOfIslands(): int
@@ -68,6 +67,8 @@ class IslandChecker
         // Traverse the array looking for items that have a 1
         for ($row = 0; $row < count($this->array); ++$row) {
             for ($col = 0; $col < count($this->array[$row]); ++$col) {
+                Log::info("Main loop");
+                Log::info($this->array[$row]);
                 if ($this->array[$row][$col] === 1) {
                     $this->dfs($row, $col);
                     $numberOfIslands++;
