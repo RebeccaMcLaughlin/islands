@@ -2,12 +2,14 @@
 
 namespace App\Console\Commands\Islands;
 
-use Illuminate\Console\Command;
+use App\Services\Islands\IslandChecker;
 use App\Services\Islands\IslandGenerator;
+use Illuminate\Console\Command;
 
 class Island extends Command
 {
     protected $islandGenerator;
+    protected $islandChecker;
 
     /**
      * The name and signature of the console command.
@@ -44,9 +46,19 @@ class Island extends Command
         $this->line("Generating islands");
 
         $array = $this->islandGenerator->generateArray();
-        foreach ($array as $arr) {
-            $this->line($arr);
+
+        $islandCount = new IslandChecker($array);
+
+        $arrayRows = [];
+        foreach ($array as $key => $row) {
+            $arrayRows[$key] = implode(",", $row);
         }
-        return $array;
+
+        $output = [
+            'map' => $array,
+            'islandsCount' => $islandCount->numberOfIslands()
+        ];
+
+        $this->info(print_r($output));
     }
 }
