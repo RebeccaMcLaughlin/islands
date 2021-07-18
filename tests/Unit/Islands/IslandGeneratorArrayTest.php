@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Islands;
 
 use App\Services\Islands\IslandGenerator;
 use PHPUnit\Framework\TestCase;
